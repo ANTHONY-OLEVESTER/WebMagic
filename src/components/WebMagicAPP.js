@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import GameBoard from "./Chicken-Crossing/GameBoard"; // Chicken Crossing Game
 import PlinkoGame from "./Plinko/PlinkoGame"; // Plinko Game
 import GoogleLogin from "./1Login/GoogleLogin"; // Google Login Script
+import { FaHome, FaGamepad, FaPuzzlePiece, FaLock } from "react-icons/fa"; // Icons for navigation
 import "./WebMagicAPP.css";
 
 const WebMagicAPP = () => {
   const [activeGame, setActiveGame] = useState(null); // Tracks the currently selected game
   const [user, setUser] = useState(null); // Tracks the logged-in user
+  const [collapsed, setCollapsed] = useState(false); // Tracks collapse state of the side panel
 
   // Toggle to show the selected game
   const handleGameSelect = (game) => {
@@ -25,6 +27,11 @@ const WebMagicAPP = () => {
 
   const handleLogout = () => {
     setUser(null); // Clear user state on logout
+  };
+
+  // Toggle collapsible menu
+  const toggleCollapse = () => {
+    setCollapsed((prevState) => !prevState);
   };
 
   return (
@@ -49,12 +56,27 @@ const WebMagicAPP = () => {
       </div>
 
       {/* Left Navigation Bar */}
-      <div className="left-nav">
+      <div className={`left-nav ${collapsed ? "collapsed" : ""}`}>
+        <button onClick={toggleCollapse} className="collapse-button">
+          {collapsed ? ">" : "<"}
+        </button>
         <ul>
-          <li onClick={() => handleGameSelect(null)}>Home</li>
-          <li onClick={() => handleGameSelect("chicken")}>Chicken Crossing</li>
-          <li onClick={() => handleGameSelect("plinko")}>Plinko</li>
-          <li>Game 3 (Coming Soon)</li>
+          <li onClick={() => handleGameSelect(null)}>
+            <FaHome className="nav-icon" />
+            {!collapsed && <span>Home</span>}
+          </li>
+          <li onClick={() => handleGameSelect("chicken")}>
+            <FaGamepad className="nav-icon" />
+            {!collapsed && <span>Chicken Crossing</span>}
+          </li>
+          <li onClick={() => handleGameSelect("plinko")}>
+            <FaPuzzlePiece className="nav-icon" />
+            {!collapsed && <span>Plinko</span>}
+          </li>
+          <li>
+            <FaLock className="nav-icon" />
+            {!collapsed && <span>Game 3 (Coming Soon)</span>}
+          </li>
         </ul>
       </div>
 

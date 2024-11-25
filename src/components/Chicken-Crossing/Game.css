@@ -1,0 +1,39 @@
+.game-board {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .road {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    height: 100px;
+    overflow: hidden;
+  }
+  
+  .tile {
+    width: 60px;
+    height: 60px;
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 2px;
+    font-weight: bold;
+    color: white;
+    perspective: 1000px; /* For 3D flips */
+  }
+  
+  .chicken {
+    position: absolute;
+    bottom: 20px;
+    font-size: 2rem;
+  }
+  
+  .car {
+    position: absolute;
+    top: 10px;
+    font-size: 2rem;
+  }
+  

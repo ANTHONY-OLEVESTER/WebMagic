@@ -1,41 +1,42 @@
 import React, { useState } from "react";
-import GameBoard from "./Chicken-Crossing/GameBoard";
+import GameBoard from "./Chicken-Crossing/GameBoard"; // Chicken Crossing Game
+import PlinkoGame from "./Plinko/PlinkoGame"; // Plinko Game
 import "./WebMagicAPP.css";
 
 const WebMagicAPP = () => {
-  const [showGame, setShowGame] = useState(false); // Controls whether the game is displayed
+  const [activeGame, setActiveGame] = useState(null); // Tracks the currently selected game
 
-  // Toggle to show the game or the card page
-  const handleCardClick = () => {
-    setShowGame(true);
+  // Toggle to show the selected game
+  const handleGameSelect = (game) => {
+    setActiveGame(game);
   };
 
   // Return to the card page
   const handleBackToCards = () => {
-    setShowGame(false);
+    setActiveGame(null);
   };
 
   return (
     <div className="app">
-      {showGame ? (
+      {activeGame ? (
         <div className="game-container">
           <button className="back-button" onClick={handleBackToCards}>
             Back to Cards
           </button>
-          <GameBoard />
+          {activeGame === "chicken" && <GameBoard />}
+          {activeGame === "plinko" && <PlinkoGame />}
         </div>
       ) : (
         <div className="cards-container">
           <h1>Choose a Game</h1>
           <div className="cards">
-            {/* Example cards */}
-            <div className="card" onClick={handleCardClick}>
+            <div className="card" onClick={() => handleGameSelect("chicken")}>
               <h3>Chicken Crossing</h3>
               <p>Help the chicken cross the road!</p>
             </div>
-            <div className="card">
-              <h3>Game 2</h3>
-              <p>Coming soon...</p>
+            <div className="card" onClick={() => handleGameSelect("plinko")}>
+              <h3>Plinko</h3>
+              <p>Drop balls and score big!</p>
             </div>
             <div className="card">
               <h3>Game 3</h3>

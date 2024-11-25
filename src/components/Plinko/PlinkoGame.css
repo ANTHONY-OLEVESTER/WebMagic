@@ -1,0 +1,19 @@
+.plinko-game {
+    text-align: center;
+  }
+  
+  .score-board {
+    margin: 20px auto;
+    max-width: 300px;
+  }
+  
+  .plinko-board {
+    margin: 20px auto;
+    max-width: 500px;
+    position: relative;
+  }
+  
+  .ball {
+    transition: all 0.3s ease-in-out;
+  }
+  

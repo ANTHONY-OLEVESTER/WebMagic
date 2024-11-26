@@ -4,20 +4,24 @@ import Peg from "./modules/Peg";
 import Slot from "./modules/Slot";
 import Ball from "./modules/Ball";
 
-const PlinkoGame = ({ levels = 3 }) => {
+const PlinkoGame = ({ levels = 10 }) => {
   const canvasRef = useRef(null);
 
   useEffect(() => {
     const app = new PIXI.Application({
-      width: 800,
-      height: 600,
+      width: window.innerWidth * 0.8,
+      height: window.innerHeight * 0.8,
       backgroundColor: 0x1099bb,
     });
-    canvasRef.current.appendChild(app.view);
+
+    // Append the PIXI canvas to the DOM
+    if (canvasRef.current) {
+      canvasRef.current.appendChild(app.view);
+    }
 
     const pegs = [];
     const slots = [];
-    let ball = null;
+    const balls = []; // Array to store multiple balls
 
     const setup = () => {
       const lines = 2 + levels;
@@ -35,7 +39,6 @@ const PlinkoGame = ({ levels = 3 }) => {
         grid.lineTo(app.renderer.width, j);
       }
       app.stage.addChild(grid);
-
 
       // Create Pegs
       for (let i = 3; i <= lines; i++) {
@@ -75,55 +78,86 @@ const PlinkoGame = ({ levels = 3 }) => {
         slots.push(slotObj);
       }
 
-      // Create Ball
-      const ballObj = new Ball(400, 50, 15); // Ball starts at (400, 50)
-      ball = ballObj.create(); // Create and retain the Ball instance
-      app.stage.addChild(ballObj.graphic); // Add the graphics object to the stage
+      // Create Multiple Balls
+      for (let i = 0; i < 5; i++) {
+        const ballObj = new Ball(400, 50, 15); // Ball starts at (400, 50)
+        ballObj.create(); // Ensure the graphic is created
+        ballObj.velocity.x = 2 + (Math.random() - 0.5) * 0.5; // Add slight randomness
+        ballObj.velocity.y = 1; // Initial downward velocity
+        balls.push(ballObj);
+        app.stage.addChild(ballObj.graphic); // Add the graphics object to the stage
+      }
     };
 
-    const detectCollisions = (ball, pegs) => {
+    const detectCollisions = (ballObj, pegs) => {
       pegs.forEach((peg) => {
-        const dx = ball.x - peg.x;
-        const dy = ball.y - peg.y;
+        if (!peg || !ballObj || !ballObj.graphic) return; // Skip null or uninitialized objects
+
+        const dx = ballObj.graphic.x - peg.x;
+        const dy = ballObj.graphic.y - peg.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
 
-        if (distance < ball.radius + peg.radius) {
-          // Simple collision response: adjust velocity
-          ball.velocity.y *= -0.5; // Reverse Y velocity and reduce speed
-          ball.velocity.x += Math.random() * 2 - 1; // Add random deflection
+        if (distance < ballObj.radius + peg.radius) {
+          // Normalize the direction vector
+          const normalX = dx / distance;
+          const normalY = dy / distance;
+
+          // Reflect the velocity along the perpendicular direction
+          const dotProduct =
+            ballObj.velocity.x * normalX + ballObj.velocity.y * normalY;
+          ballObj.velocity.x -= 2 * dotProduct * normalX;
+          ballObj.velocity.y -= 2 * dotProduct * normalY;
+
+          // Add a slight dampening to reduce velocity on collisions
+          ballObj.velocity.x *= 0.9;
+          ballObj.velocity.y *= 0.9;
         }
       });
     };
 
     const gameLoop = (delta) => {
-      if (ball) {
-        ball.update(delta);
-        detectCollisions(ball, pegs);
+      balls.forEach((ballObj) => {
+        if (!ballObj || !ballObj.graphic) return; // Skip uninitialized balls
+
+        ballObj.update(delta);
+        detectCollisions(ballObj, pegs);
 
         // Boundary checks
-        if (ball.x < 0 || ball.x > app.renderer.width) {
-          ball.velocity.x *= -1; // Bounce horizontally
+        if (ballObj.graphic.x < 0 || ballObj.graphic.x > app.renderer.width) {
+          ballObj.velocity.x *= -1; // Bounce horizontally
         }
-        if (ball.y > app.renderer.height) {
-          ball.velocity.y = 0;
-          ball.velocity.x = 0; // Stop the ball if it falls out of bounds
+        if (ballObj.graphic.y > app.renderer.height) {
+          ballObj.velocity.y = 0;
+          ballObj.velocity.x = 0; // Stop the ball if it falls out of bounds
         }
-      }
+      });
     };
 
     app.ticker.add(gameLoop);
 
     setup();
 
+    const resize = () => {
+      app.renderer.resize(window.innerWidth * 0.8, window.innerHeight * 0.8);
+    };
+    window.addEventListener("resize", resize);
+
+    // Cleanup on component unmount
     return () => {
+      app.ticker.stop();
+      app.stage.removeChildren();
       app.destroy(true, true);
+      balls.length = 0;
+      pegs.length = 0;
+      slots.length = 0;
+      window.removeEventListener("resize", resize);
       if (canvasRef.current) {
-        canvasRef.current.innerHTML = ""; // Cleanup canvas
+        canvasRef.current.innerHTML = ""; // Cleanup DOM
       }
     };
   }, [levels]);
 
-  return <div ref={canvasRef}></div>;
+  return <div ref={canvasRef} className="plinko-game"></div>;
 };
 
 export default PlinkoGame;

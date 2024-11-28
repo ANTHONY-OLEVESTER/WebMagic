@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import GameBoard from "./Chicken-Crossing/GameBoard"; // Chicken Crossing Game
 import PlinkoGame from "./Plinko/PlinkoGame"; // Plinko Game
 import GoogleLogin from "./1Login/GoogleLogin"; // Google Login Script
 import { FaHome, FaGamepad, FaPuzzlePiece, FaLock } from "react-icons/fa"; // Icons for navigation
+import { Link } from "react-router-dom"; // For routing the Terms and Conditions link
 import "./WebMagicAPP.css";
 
 const WebMagicAPP = () => {
@@ -10,28 +11,47 @@ const WebMagicAPP = () => {
   const [user, setUser] = useState(null); // Tracks the logged-in user
   const [collapsed, setCollapsed] = useState(false); // Tracks collapse state of the side panel
 
-  // Toggle to show the selected game
-  const handleGameSelect = (game) => {
-    setActiveGame(game);
-  };
-
-  // Return to the card page
-  const handleBackToCards = () => {
-    setActiveGame(null);
-  };
+  // Effect to check for saved user login
+  useEffect(() => {
+    const savedUser = localStorage.getItem("user");
+    if (savedUser) {
+      setUser(JSON.parse(savedUser)); // Automatically log in the user if info is found
+    }
+  }, []);
 
   // Handle Google login state
   const handleLogin = (userInfo) => {
     setUser(userInfo); // Set user info after login
+    localStorage.setItem("user", JSON.stringify(userInfo)); // Save user info to local storage
   };
 
   const handleLogout = () => {
     setUser(null); // Clear user state on logout
+    localStorage.removeItem("user"); // Remove user info from local storage
   };
 
   // Toggle collapsible menu
   const toggleCollapse = () => {
     setCollapsed((prevState) => !prevState);
+  };
+
+  // Check if user is logged in before performing an action
+  const requireLogin = (action) => {
+    if (!user) {
+      alert("Please log in to access this feature.");
+      return;
+    }
+    action();
+  };
+
+  // Toggle to show the selected game
+  const handleGameSelect = (game) => {
+    requireLogin(() => setActiveGame(game));
+  };
+
+  // Return to the card page
+  const handleBackToCards = () => {
+    setActiveGame(null);
   };
 
   return (
@@ -110,6 +130,42 @@ const WebMagicAPP = () => {
           </div>
         )}
       </div>
+
+      {/* Footer */}
+      <footer className="footer">
+        <p>
+          © 2024 WebMagicAPP. All rights reserved. |{" "}
+          <Link to="/terms-and-conditions" className="footer-link">
+            Terms and Conditions
+          </Link>{" "}
+          |{" "}
+          <a 
+            href="https://www.freeprivacypolicy.com/live/2493758f-1ebe-48f7-9ef3-e510c8f83a97" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="footer-link"
+          >
+            Privacy Policy
+          </a>{" "}
+          |{" "}
+          <Link to="/refund-and-cancellation-policy" className="footer-link">
+            Refund and Cancellation Policy
+          </Link>
+          {" "}
+          |{" "}
+          <Link to="/shipping-and-delivery-policy" className="footer-link">
+            Shipping and Delivery Policy
+          </Link>
+          {" "}
+          |{" "}
+          <Link to="/contact-us" className="footer-link">
+            Contact Us
+          </Link>
+
+
+        </p>
+      </footer>
+
     </div>
   );
 };

@@ -182,3 +182,29 @@
 .left-nav.collapsed + .main-content {
   margin-left: 60px; /* Matches collapsed nav width */
 }
+
+
+.footer {
+  background-color: #f8f9fa;
+  text-align: center;
+  padding: 10px 20px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  font-size: 14px;
+  border-top: 1px solid #e9ecef;
+}
+
+.footer p {
+  margin: 0;
+  color: #6c757d;
+}
+
+.footer-link {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.footer-link:hover {
+  text-decoration: underline;
+}

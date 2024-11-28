@@ -1,12 +1,26 @@
 import React from "react";
-//import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import WebMagicAPP from "./components/WebMagicAPP";
+import TermsAndConditions from "./components/FooterLinks/TermsAndConditions";
+import RefundAndCancellationPolicy from "./components/FooterLinks/RefundAndCancellationPolicy";
+import ShippingAndDeliveryPolicy from "./components/FooterLinks/ShippingAndDeliveryPolicy";
+import ContactUs from "./components/FooterLinks/ContactUs";
 
 function App() {
   return (
-    <div className="App">
-      <WebMagicAPP />
-    </div>
+    <Router>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<WebMagicAPP />} />
+          <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+          <Route path="/refund-and-cancellation-policy" element={<RefundAndCancellationPolicy />} />
+          <Route path="/shipping-and-delivery-policy" element={<ShippingAndDeliveryPolicy />} />
+          <Route path="/contact-us" element={<ContactUs />} />
+
+
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

@@ -4,40 +4,33 @@ const ShippingAndDeliveryPolicy = () => {
   return (
     <div style={{ padding: "20px" }}>
       <h1>Shipping and Delivery Policy</h1>
-      <p><strong>Effective Date:</strong> [Insert Date]</p>
+      <p><strong>Effective Date:</strong> 29-11-2024</p>
       <p>
-        At <strong>[Your Web App Name]</strong>, we strive to ensure clarity
-        about our shipping and delivery process. While we currently do not ship
-        physical products, we have outlined our shipping policy for transparency
-        in case this changes in the future.
+        At <strong>Web Magic</strong>, we currently do not offer shipping or delivery services as our 
+        platform does not involve the sale of physical products. This policy is provided for clarity 
+        regarding our current operations.
       </p>
 
-      <h2>1. Shipping Timeline</h2>
+      <h2>1. No Shipping or Delivery Services</h2>
       <ul>
         <li>
-          Any orders placed will take up to <strong>30 days</strong> for
-          processing and delivery.
+          We operate entirely in the digital space, and all products or services provided 
+          through our platform are accessible online.
         </li>
         <li>
-          As of now, <strong>we do not have any physical products available for
-          shipping</strong>. Updates regarding shipping availability will be
-          shared on our platform as new services or products are introduced.
+          As a result, no shipping or delivery processes are applicable at this time.
         </li>
       </ul>
 
-      <h2>2. Delivery Address</h2>
+      <h2>2. Future Updates</h2>
       <p>
-        All deliveries, if initiated in the future, will be managed from our
-        registered address:
+        Should our offerings expand to include physical products or services that 
+        require shipping, this policy will be updated to reflect the necessary details.
       </p>
-      <address>
-        <strong>Bommasandra, Omar Road</strong>
-      </address>
 
       <h2>3. Contact Information</h2>
       <p>
-        For any queries regarding shipping, delivery, or related concerns,
-        please contact us at:
+        For any questions or concerns regarding this policy, please contact us at:
       </p>
       <p>
         <strong>Email:</strong>{" "}

@@ -1,6 +1,7 @@
 import React from "react";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "./firebaseConfig"; // Adjust the path as necessary
+import "./GoogleLogin.css"; // Import CSS for styling
 
 const GoogleLogin = ({ onLoginSuccess }) => {
   const handleLogin = async () => {
@@ -20,7 +21,12 @@ const GoogleLogin = ({ onLoginSuccess }) => {
   };
 
   return (
-    <button onClick={handleLogin} className="login-button">
+    <button onClick={handleLogin} className="google-login-button">
+      <img
+        src='https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_"G"_logo.svg'
+        alt="Google Logo"
+        className="google-icon"
+      />
       Login with Google
     </button>
   );

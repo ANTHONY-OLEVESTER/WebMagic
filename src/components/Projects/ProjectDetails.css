@@ -1,0 +1,123 @@
+/* General layout for project details */
+.project-page {
+    font-family: "Press Start 2P", monospace; /* Retro pixel font */
+    color: #33ff99; /* Neon green text */
+    background: #000000; /* Dark background */
+    padding: 20px;
+    text-align: center;
+    min-height: 100vh; /* Full height to fit screen */
+    box-sizing: border-box;
+  }
+  
+  /* Project Header */
+  .project-page h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px #33ff99, 0 0 20px #33ff99;
+  }
+  
+  /* Project Description */
+  .project-page p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 10px 0 30px;
+    color: #d4d4d4; /* Slightly lighter gray for body text */
+  }
+  
+  /* Loading State */
+  .project-page div {
+    font-size: 1.2rem;
+    color: #ff4b5c; /* Warning red for loading/fallback */
+  }
+  
+  /* Featured Video */
+  .featured-video {
+    margin-bottom: 40px;
+    text-align: center;
+  }
+  
+  .featured-video iframe {
+    border: 2px solid #33ff99;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(51, 255, 153, 0.8);
+  }
+  
+  .featured-video h3 {
+    margin: 10px 0;
+    font-size: 1.5rem;
+    text-shadow: 0 0 5px #33ff99, 0 0 10px #33ff99;
+  }
+  
+  .featured-video p {
+    font-size: 1rem;
+    color: #d4d4d4;
+  }
+  
+  /* Video Gallery Section */
+  .video-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .video-item {
+    background-color: #101010; /* Slightly lighter than main background */
+    border: 2px solid #33ff99;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(51, 255, 153, 0.5);
+    padding: 15px;
+    width: 300px; /* Ensure uniform card sizes */
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .video-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(51, 255, 153, 1);
+  }
+  
+  .video-item iframe {
+    width: 100%;
+    height: 180px;
+    border-radius: 8px;
+    border: none;
+  }
+  
+  .video-item h3 {
+    font-size: 1rem;
+    margin-top: 10px;
+    color: #33ff99;
+  }
+  
+  .video-item p {
+    font-size: 0.9rem;
+    color: #d4d4d4;
+  }
+  
+  /* Buttons */
+  .project-page .back-button {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    font-family: "Press Start 2P", monospace;
+    color: #33ff99;
+    background: #101010;
+    border: 2px solid #33ff99;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+  }
+  
+  .project-page .back-button:hover {
+    background-color: #33ff99;
+    color: #000000;
+    transform: scale(1.1);
+  }
+  
+  /* Placeholder for Fallback Content */
+  .project-page .fallback {
+    font-size: 1.2rem;
+    color: #ff4b5c; /* Warning color */
+    text-shadow: 0 0 5px #ff4b5c, 0 0 10px #ff4b5c;
+  }
+  

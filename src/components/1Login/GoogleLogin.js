@@ -22,12 +22,13 @@ const GoogleLogin = ({ onLoginSuccess }) => {
 
   return (
     <button onClick={handleLogin} className="google-login-button">
+      Login 
       <img
         src='https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_"G"_logo.svg'
         alt="Google Logo"
         className="google-icon"
       />
-      Login with Google
+      Why Tho?
     </button>
   );
 };

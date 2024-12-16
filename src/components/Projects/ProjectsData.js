@@ -11,6 +11,13 @@ export const projectsData = [
       description: "Learn about the optimal subsequence algorithm.",
       video: null,
     },
+    {
+      id: 3,
+      title: "The Olevester Transform",
+  description:
+    "Explore the Olevester Transform, a theoretical framework for navigating, normalizing, and stabilizing systems across different dimensions.",
+      video: null,
+    }
     // Add more projects here
   ];
   

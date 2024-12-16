@@ -1,109 +1,27 @@
 /* General layout */
-.web-magic-app {
-  font-family: "Press Start 2P", monospace; /* Pixelated font for retro style */
-  text-align: center;
-  background: radial-gradient(circle, #000000 60%, #1a1a1a);
-  padding: 20px;
-  color: #33ff99;
-}
-
-.cards-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.cards {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
-/* Card styles */
-.card {
-  background: linear-gradient(135deg, #101010, #1a1a1a);
-  border: 2px solid #33ff99;
-  border-radius: 8px;
-  box-shadow: 0 0 15px rgba(51, 255, 153, 0.8);
-  width: 280px;
-  padding: 20px;
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  color: #33ff99;
-  font-family: "Press Start 2P", monospace;
-}
-
-.card:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 25px rgba(51, 255, 153, 1);
-}
-
-.card h3 {
-  font-size: 1.2em;
-  margin: 0;
-}
-
-.card p {
-  margin: 10px 0 0;
-  font-size: 0.9em;
-  line-height: 1.4;
-}
-
-/* Game container styles */
-.game-container {
-  position: relative;
-  padding: 20px;
-}
-
-.back-button {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  background: #33ff99;
-  color: #000000;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
-  cursor: pointer;
-  font-size: 0.8em;
-  font-weight: bold;
-  transition: background 0.3s ease, transform 0.3s;
-}
-
-.back-button:hover {
-  background: #000000;
-  color: #33ff99;
-  transform: scale(1.1);
-  border: 1px solid #33ff99;
-}
-
-
 .app {
+  font-family: "Press Start 2P", monospace; /* Retro gaming font */
+  color: #33ff99; /* Neon green */
+  background: radial-gradient(circle, #000000, #1a1a1a);
+  min-height: 100vh; /* Full height */
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Ensures the app covers the full viewport height */
-  background: linear-gradient(135deg, #000000, #1a1a1a); /* Background styling */
-  background-size: cover; /* Ensure the gradient or image fits the screen */
-  background-attachment: fixed; /* Locks background in place during scrolling */
-  color: #33ff99; /* Default font color */
 }
-
 
 /* Top Bar */
 .top-bar {
-  position: fixed; /* Make the top bar fixed */
+  position: fixed;
   top: 0;
   left: 0;
-  width: 100%; /* Ensure it spans the full width */
-  height: 50px; /* Set a fixed height */
+  width: 100%;
+  height: 50px;
   background: linear-gradient(90deg, #101010, #1a1a1a);
   border-bottom: 2px solid #33ff99;
   display: flex;
-  justify-content: flex-end; /* Align content to the right */
+  justify-content: flex-end;
   align-items: center;
-  padding: 0 20px;
-  z-index: 1000; /* Ensure it stays above other elements */
+  padding: 0 15px;
+  z-index: 1000;
 }
 
 .profile {
@@ -117,39 +35,53 @@
   border-radius: 50%;
   border: 2px solid #33ff99;
   margin-right: 10px;
-  cursor: pointer;
 }
 
 .logout-button {
-  padding: 5px 15px;
-  background-color: #ff4b5c;
-  color: #ffffff;
+  padding: 5px 10px;
+  font-family: "Press Start 2P", monospace;
+  background: #ff4b5c;
+  color: white;
   border: 2px solid #ff4b5c;
   border-radius: 5px;
   cursor: pointer;
-  font-family: "Press Start 2P", monospace;
 }
 
 .logout-button:hover {
-  background-color: #000000;
+  background: #101010;
   color: #ff4b5c;
 }
 
-/* Left Navigation Bar */
+.login-button {
+  padding: 5px 10px;
+  font-family: "Press Start 2P", monospace;
+  background: #33ff99;
+  color: black;
+  border: 2px solid #33ff99;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.login-button:hover {
+  background: #000000;
+  color: #33ff99;
+}
+
+/* Sidebar */
 .left-nav {
   position: fixed;
-  top: 50px; /* Account for the height of the top bar */
+  top: 50px; /* Adjust for top bar height */
   left: 0;
   width: 220px;
-  height: calc(100vh - 50px); /* Full height minus the top bar height */
+  height: calc(100vh - 50px); /* Full height minus top bar */
   background: linear-gradient(180deg, #000000, #101010);
-  color: #33ff99;
+  border-right: 2px solid #33ff99;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.5);
-  border-right: 2px solid #33ff99;
-  overflow: hidden;
+  overflow-y: auto;
+  transition: width 0.3s ease-in-out;
 }
 
 .left-nav.collapsed {
@@ -159,46 +91,58 @@
 .left-nav ul {
   list-style: none;
   padding: 0;
+  margin: 0;
   width: 100%;
 }
 
 .left-nav ul li {
-  display: flex;
-  align-items: center;
-  padding: 10px;
+  padding: 10px 15px;
   cursor: pointer;
   font-size: 0.9em;
+  display: flex;
+  align-items: center;
   transition: background-color 0.3s, transform 0.3s;
 }
 
 .left-nav ul li:hover {
   background-color: rgba(51, 255, 153, 0.2);
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 
 .left-nav ul li .nav-icon {
-  font-size: 20px;
+  font-size: 1.5rem;
   margin-right: 10px;
+}
+
+.left-nav ul li ul {
+  padding-left: 20px;
+  margin-top: 10px;
+}
+
+.left-nav ul li ul li {
+  font-size: 0.8em;
+  padding: 5px 10px;
 }
 
 .left-nav.collapsed ul li .nav-icon {
   margin-right: 0;
 }
 
-.left-nav.collapsed ul li span {
+.left-nav.collapsed ul li span,
+.left-nav.collapsed ul li ul {
   display: none;
 }
 
+/* Collapse button */
 .collapse-button {
   background-color: #101010;
   color: #33ff99;
   border: 2px solid #33ff99;
-  cursor: pointer;
   width: 100%;
   text-align: center;
-  padding: 10px;
-  font-size: 16px;
   font-family: "Press Start 2P", monospace;
+  padding: 10px;
+  cursor: pointer;
 }
 
 .collapse-button:hover {
@@ -208,13 +152,13 @@
 
 /* Main Content */
 .main-content {
-  margin-left: 220px; /* Leave space for the left navigation */
-  margin-top: 50px; /* Leave space for the top bar */
+  margin-left: 220px; /* Space for sidebar */
+  margin-top: 50px; /* Space for top bar */
   padding: 20px;
   background: #000000;
   color: #33ff99;
-  transition: margin-left 0.3s;
   font-family: "Press Start 2P", monospace;
+  transition: margin-left 0.3s ease-in-out;
 }
 
 .left-nav.collapsed + .main-content {
@@ -225,34 +169,37 @@
 .footer {
   background: #101010;
   text-align: center;
-  padding: 10px 20px;
+  padding: 10px;
+  color: #33ff99;
+  border-top: 2px solid #33ff99;
+  font-size: 0.8em;
+  font-family: "Press Start 2P", monospace;
   position: fixed;
   bottom: 0;
   width: 100%;
-  font-size: 12px;
-  color: #33ff99;
-  font-family: "Press Start 2P", monospace;
 }
 
-.footer-link {
-  color: #33ff99;
+/* Project Links in Sidebar */
+.left-nav ul li ul li a {
   text-decoration: none;
+  color: #33ff99;
+  font-size: 0.8em;
+  transition: transform 0.3s ease, text-shadow 0.3s ease;
 }
 
-.footer-link:hover {
-  text-decoration: underline;
-}
-
-.projects-container ul li {
-  padding: 10px;
-  border: 2px dashed #33ff99;
-  border-radius: 8px;
-  margin-bottom: 10px;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.3s;
-}
-
-.projects-container ul li:hover {
-  background-color: #101010;
+.left-nav ul li ul li a:hover {
   transform: scale(1.1);
+  text-shadow: 0 0 5px rgba(51, 255, 153, 0.8);
+}
+
+/* Adjust links for sidebar hover effects */
+.left-nav ul li a {
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.3s ease, text-shadow 0.3s ease;
+}
+
+.left-nav ul li a:hover {
+  transform: scale(1.1);
+  text-shadow: 0 0 5px rgba(51, 255, 153, 0.8);
 }

@@ -1,58 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { materialDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { FaCopy, FaCheck } from "react-icons/fa";
 import "./Project2.css";
 
 export const project2Data = {
   id: 2,
-  title: "Optimal Subsequence Algorithm - Komlos Conjucture",
+  title: "Optimal Subsequence Algorithm - Komlos Conjecture",
   description: "Learn about the optimal subsequence algorithm.",
 };
 
 const Project2 = () => {
-  return (
-    <div className="project-page">
-      <h1>{project2Data.title}</h1>
-      <p>
-        Dive deep into the development and validation of the Optimal Subsequence Algorithm. This project demonstrates an efficient method for finding optimal subsequences with applications in data science and optimization problems.
-      </p>
-      <h2>Key Highlights</h2>
-      <ul className="highlight-list">
-        <li>Understanding the algorithm's efficiency.</li>
-        <li>Comparison with brute-force methods.</li>
-        <li>Use cases in data analysis and signal processing.</li>
-      </ul>
+  const [copied, setCopied] = useState(null);
 
-      <h2>GitHub Repository</h2>
-      <p>
-        Explore the full codebase and documentation on{" "}
-        <a
-          href="https://github.com/ANTHONY-OLEVESTER/komlos_optimal"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          GitHub
-        </a>.
-      </p>
+  const handleCopy = (code, index) => {
+    navigator.clipboard.writeText(code);
+    setCopied(index);
+    setTimeout(() => setCopied(null), 2000); // Reset copied status after 2 seconds
+  };
 
-      <h2>Python Library</h2>
-      <p>
-        The Optimal Subsequence Algorithm is available as a Python library on{" "}
-        <a
-          href="https://pypi.org/project/komlos-optimal/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          PyPI
-        </a>.
-      </p>
-      <p>To install the library, use the following command:</p>
-      <pre className="code-snippet">
-        <code>pip install komlos-optimal</code>
-      </pre>
-
-      <h2>Using the Library</h2>
-      <pre className="code-snippet">
-        <code>
-          {`# Example usage of the komlos-optimal library
+  const codeSnippets = [
+    {
+      language: "bash",
+      code: "pip install komlos-optimal",
+    },
+    {
+      language: "python",
+      code: `# Example usage of the komlos-optimal library
 from komlos_optimal import optimal_subsequence
 
 # Example data
@@ -60,15 +34,11 @@ data = [1, -2, 3, 4, -5, 6]
 
 # Find the optimal subsequence
 result = optimal_subsequence(data)
-print("Optimal Subsequence:", result)
-          `}
-        </code>
-      </pre>
-
-      <h2>Code Snippet for Validation</h2>
-      <pre className="code-snippet">
-        <code>
-          {`# Python code for validating the Optimal Subsequence Algorithm
+print("Optimal Subsequence:", result)`,
+    },
+    {
+      language: "python",
+      code: `# Python code for validating the Optimal Subsequence Algorithm
 import numpy as np
 import time
 
@@ -89,17 +59,46 @@ def validate_and_benchmark():
         optimal_results = [optimal_subsequence(vector) for vector in data]
         print("Validation Successful:", len(optimal_results) == len(data))
 
-validate_and_benchmark()
-          `}
-        </code>
-      </pre>
+validate_and_benchmark()`,
+    },
+  ];
+
+  return (
+    <div className="project-page">
+      <h1>{project2Data.title}</h1>
+      <p>
+        Dive deep into the development and validation of the Optimal Subsequence Algorithm. This project demonstrates an efficient method for finding optimal subsequences with applications in data science and optimization problems.
+      </p>
+
+      <h2>Key Highlights</h2>
+      <ul className="highlight-list">
+        <li>Understanding the algorithm's efficiency.</li>
+        <li>Comparison with brute-force methods.</li>
+        <li>Use cases in data analysis and signal processing.</li>
+      </ul>
+
+      <h2>Code Snippets</h2>
+      {codeSnippets.map((snippet, index) => (
+        <div className="code-snippet-container" key={index}>
+          <div className="copy-container">
+            <button
+              className="copy-button"
+              onClick={() => handleCopy(snippet.code, index)}
+            >
+              {copied === index ? <FaCheck /> : <FaCopy />}
+            </button>
+          </div>
+          <SyntaxHighlighter language={snippet.language} style={materialDark}>
+            {snippet.code}
+          </SyntaxHighlighter>
+        </div>
+      ))}
 
       <h2>Visual Demonstration</h2>
       <p>
         The following chart illustrates the performance comparison between the Optimal Subsequence Algorithm and the brute-force approach.
       </p>
       <div className="placeholder-chart">
-        {/* Placeholder for future visual demonstrations */}
         <p>Chart Placeholder: Visualization of algorithm performance.</p>
       </div>
 

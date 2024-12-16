@@ -1,8 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { projectsData } from "../Projects/ProjectsData"; // Import projects data
 import "./Home.css"; // Add CSS for retro styling
 
-const Home = ({ onSelectProject }) => {
+const Home = () => {
   const latestProject = projectsData[projectsData.length - 1]; // Get the last project added
   console.log("Rendering Home with projects:", projectsData);
 
@@ -11,10 +12,10 @@ const Home = ({ onSelectProject }) => {
       <h1 className="home-title">Welcome to WebMagicAPP</h1>
       <div className="projects-grid">
         {projectsData.map((project) => (
-          <div
+          <Link
+            to={`/project/${project.id}`} // Navigate to the specific project route
             key={project.id}
             className="project-card"
-            onClick={() => onSelectProject(project)} // Notify parent about selected project
           >
             {project.video ? (
               <div className="card-video-container">
@@ -36,18 +37,18 @@ const Home = ({ onSelectProject }) => {
               <h3>{project.title}</h3>
               <p>{project.description}</p>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
       <div className="latest-project">
         <h2>Latest Project</h2>
-        <div
+        <Link
+          to={`/project/${latestProject.id}`} // Navigate to the latest project
           className="latest-project-card"
-          onClick={() => onSelectProject(latestProject)} // Notify parent about latest project selection
         >
           <h3>{latestProject.title}</h3>
           <p>{latestProject.description}</p>
-        </div>
+        </Link>
       </div>
     </div>
   );
